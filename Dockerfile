@@ -4,11 +4,15 @@ WORKDIR /app
 # copy csproj and restore as distinct layers
 COPY *.sln .
 COPY MenuApp.OrderService/*.csproj ./MenuApp.OrderService/
+COPY MenuApp.OrderService.EntityFramework/*.csproj ./MenuApp.OrderService.EntityFramework/
+COPY MenuApp.OrderService.Logic/*.csproj ./MenuApp.OrderService.Logic/
 #
 RUN dotnet restore 
 #
 # copy everything else and build app
 COPY MenuApp.OrderService/. ./MenuApp.OrderService/
+COPY MenuApp.OrderService.EntityFramework/. ./MenuApp.OrderService.EntityFramework/
+COPY MenuApp.OrderService.Logic/. ./MenuApp.OrderService.Logic/
 #
 WORKDIR /app/MenuApp.OrderService
 RUN dotnet publish -c Release -o out 
