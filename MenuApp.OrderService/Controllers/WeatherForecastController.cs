@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MenuApp.OrderService.Logic.Entities;
+using MenuApp.OrderService.Logic.Interfaces.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -17,15 +19,18 @@ namespace MenuApp.OrderService.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IForecastRepository _forecastRepository;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IForecastRepository forecastRepository)
         {
             _logger = logger;
+            _forecastRepository = forecastRepository;
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public async Task<IEnumerable<WeatherForecast>> Get()
         {
+            return await _forecastRepository.GetALl();
             var rng = new Random();
             return Enumerable.Range(0, 7).Select(index => new WeatherForecast
                 {

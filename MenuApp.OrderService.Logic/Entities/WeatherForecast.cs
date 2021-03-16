@@ -1,9 +1,10 @@
 using System;
 
-namespace MenuApp.OrderService
+namespace MenuApp.OrderService.Logic.Entities
 {
     public class WeatherForecast
     {
+        public Guid Id { get; set; }
         public string Date { get; set; }
 
         public int TemperatureC { get; set; }
