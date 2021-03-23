@@ -1,8 +1,10 @@
-﻿using MenuApp.OrderService.EntityFramework.Data;
+﻿using System;
+using MenuApp.OrderService.EntityFramework.Data;
 using MenuApp.OrderService.EntityFramework.Repository;
 using MenuApp.OrderService.Logic.Interfaces.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace MenuApp.OrderService.EntityFramework
 {
@@ -12,7 +14,12 @@ namespace MenuApp.OrderService.EntityFramework
         {
             services.AddDbContext<AppDbContext>(x =>
             {
-                x.UseNpgsql(connectionString);
+                x.UseMySql(
+                        connectionString,
+                        new MariaDbServerVersion(new Version(10, 5, 9)),
+                        mysqlOptions => mysqlOptions.CharSetBehavior(CharSetBehavior.NeverAppend))
+                    .EnableSensitiveDataLogging()
+                    .EnableDetailedErrors();
             });
 
             services.AddTransient<IForecastRepository, ForecastRepository>();

@@ -1,0 +1,1 @@
+dotnet ef migrations add %1 -c AppDbContext -o ../MenuApp.OrderService.EntityFramework/Migrations/ -p ../MenuApp.OrderService.EntityFramework/MenuApp.OrderService.EntityFramework.csproj
