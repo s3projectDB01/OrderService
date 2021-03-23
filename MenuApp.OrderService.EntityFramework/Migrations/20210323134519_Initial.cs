@@ -11,10 +11,10 @@ namespace MenuApp.OrderService.EntityFramework.Migrations
                 name: "Forecasts",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Date = table.Column<string>(type: "text", nullable: true),
-                    TemperatureC = table.Column<int>(type: "integer", nullable: false),
-                    Summary = table.Column<string>(type: "text", nullable: true)
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false),
+                    Date = table.Column<string>(type: "longtext", nullable: true),
+                    TemperatureC = table.Column<int>(type: "int", nullable: false),
+                    Summary = table.Column<string>(type: "longtext", nullable: true)
                 },
                 constraints: table =>
                 {
