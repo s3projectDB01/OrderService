@@ -3,12 +3,12 @@ node {
     checkout scm
   }
   stage('SonarQube Analysis') {
-    def msbuildHome = tool '.net 5 msbuild'
+    def msbuildHome = tool 'net5sdk'
     def scannerHome = tool 'sonarscanner'
     withSonarQubeEnv() {
-      bat "\"${scannerHome}\\SonarScanner.MSBuild.exe\" begin /k:\"s3projectDB01_OrderService\""
-      bat "\"${msbuildHome}\\MSBuild.exe\" /t:Rebuild"
-      bat "\"${scannerHome}\\SonarScanner.MSBuild.exe\" end"
+      sh "${scannerHome}/bin/sonar-scanner begin /k:\"s3projectDB01_OrderService\""
+      bat "${msbuildHome}/dotnet /t:Rebuild"
+      bat "${scannerHome}/bin/sonar-scanner end"
     }
   }
 }
