@@ -12,6 +12,6 @@ namespace MenuApp.OrderService.Logic.Entities
 
         public List<MenuItem> OrderList { get; set; }
 
-        public double Prcie { get; set; }
+        public double Price { get; set; }
     }
 }
