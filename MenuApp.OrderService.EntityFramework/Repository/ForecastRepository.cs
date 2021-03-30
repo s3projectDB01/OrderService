@@ -16,7 +16,7 @@ namespace MenuApp.OrderService.EntityFramework.Repository
             _db = db;
         }
         
-        public async Task<IEnumerable<WeatherForecast>> GetALl()
+        public async Task<IEnumerable<WeatherForecast>> GetAll()
         {
             return await _db.Forecasts.ToArrayAsync();
         }

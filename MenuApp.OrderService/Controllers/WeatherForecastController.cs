@@ -30,7 +30,7 @@ namespace MenuApp.OrderService.Controllers
         [HttpGet]
         public async Task<IEnumerable<WeatherForecast>> Get()
         {
-            return await _forecastRepository.GetALl();
+            return await _forecastRepository.GetAll();
             var rng = new Random();
             return Enumerable.Range(0, 7).Select(index => new WeatherForecast
                 {
