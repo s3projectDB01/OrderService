@@ -12,8 +12,25 @@ namespace MenuApp.OrderService.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class OrderController : ControllerBase
+    public class OrderController : Controller
     {
+        private readonly IOrderRepository _orderRepository;
 
+        public OrderController(IOrderRepository orderRepository) 
+        {
+            _orderRepository = orderRepository;
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable<Order>> Get() 
+        {
+           return await _orderRepository.GetAll();
+        }
+
+        [HttpPost]
+        public void CreateOrder(Order order) 
+        {
+            _orderRepository.CreateNewOrder(order);
+        }
     }
 }

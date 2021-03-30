@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace MenuApp.OrderService.Logic.Entities
 {
-    public class Order
+    public class Ingredient
     {
-        public Guid Id { get; set;}
+        public Guid Id { get; set; }
 
-        public List<MenuItem> OrderList { get; set; }
-
-        public double Price { get; set; }
+        public string Name { get; set; }
     }
 }
