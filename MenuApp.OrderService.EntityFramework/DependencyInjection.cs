@@ -23,6 +23,7 @@ namespace MenuApp.OrderService.EntityFramework
             });
 
             services.AddTransient<IForecastRepository, ForecastRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
             
             return services;
         }
