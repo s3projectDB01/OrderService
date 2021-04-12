@@ -11,9 +11,13 @@ namespace MenuApp.OrderService.Logic.Interfaces.Repository
     {
         Task<IEnumerable<Order>> GetAll();
 
-        //Task<Order> GetOrderById();
+        Task<IEnumerable<Order>> GetPendingOrders();
 
-        Task<IEnumerable<Order>> GetUnfinishedOrders();
+        Task<IEnumerable<Order>> GetInProgressOrders();
+
+        Task<IEnumerable<Order>> GetDoneOrders();
+
+        Task<IEnumerable<Order>> GetCancelledOrders();
 
         void CreateNewOrder(Order order);
     }

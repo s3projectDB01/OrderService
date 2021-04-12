@@ -37,9 +37,24 @@ namespace MenuApp.OrderService.EntityFramework.Repository
             return await _db.Orders.ToArrayAsync();
         }
 
-        public async Task<IEnumerable<Order>> GetUnfinishedOrders()
+        public async Task<IEnumerable<Order>> GetPendingOrders()
+        {
+            return await _db.Orders.Where(o => o.Status.Equals("pending")).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Order>> GetInProgressOrders()
+        {
+            return await _db.Orders.Where(o => o.Status == "inprogress").ToArrayAsync();
+        }
+
+        public async Task<IEnumerable<Order>> GetDoneOrders()
         {
             return await _db.Orders.Where(o => o.Status == "done").ToArrayAsync();
+        }
+
+        public async Task<IEnumerable<Order>> GetCancelledOrders()
+        {
+            return await _db.Orders.Where(o => o.Status == "cancelled").ToArrayAsync();
         }
 
     }

@@ -21,16 +21,30 @@ namespace MenuApp.OrderService.Controllers
             _orderRepository = orderRepository;
         }
 
-        [HttpGet]
-        public async Task<IEnumerable<Order>> Get() 
+        [HttpGet("{status}")] // status => pending, inprogress, done, cancelled
+        //[HttpGet("{status}/{lastName}/{address}")]
+        public async Task<IEnumerable<Order>> GetOrders(string status)
         {
-           return await _orderRepository.GetAll();
-        }
-
-        [HttpGet]
-        public async Task<IEnumerable<Order>> GetUnfinishedOrders()
-        {
-            return await _orderRepository.GetUnfinishedOrders();
+            if (status == "pending")
+            {
+                return await _orderRepository.GetPendingOrders();
+            }
+            else if (status == "inprogress")
+            {
+                return await _orderRepository.GetInProgressOrders();
+            }
+            else if (status == "done")
+            {
+                return await _orderRepository.GetDoneOrders();
+            }
+            else if (status == "cancelled")
+            {
+                return await _orderRepository.GetCancelledOrders();
+            }
+            else
+            {
+                return await _orderRepository.GetAll();
+            }
         }
 
         [HttpPost]
