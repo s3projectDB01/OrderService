@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using MenuApp.OrderService.EntityFramework.Data;
 using MenuApp.OrderService.Logic.Entities;
 using MenuApp.OrderService.Logic.Interfaces.Repository;
-using MenuApp.OrderService.EntityFramework.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace MenuApp.OrderService.EntityFramework.Repository
@@ -19,6 +18,7 @@ namespace MenuApp.OrderService.EntityFramework.Repository
         {
             _db = db;
         }
+
         public void CreateNewOrder(Order order)
         {
            _db.Orders.Add(order);
@@ -26,13 +26,9 @@ namespace MenuApp.OrderService.EntityFramework.Repository
         }
 
         public async Task<IEnumerable<Order>> GetAll()
-        {
+        { 
             return await _db.Orders.ToArrayAsync();
         }
 
-        public async Task<IEnumerable<Order>> GetEverythingFromOrder()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

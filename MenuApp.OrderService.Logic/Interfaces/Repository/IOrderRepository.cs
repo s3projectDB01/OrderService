@@ -10,7 +10,10 @@ namespace MenuApp.OrderService.Logic.Interfaces.Repository
     public interface IOrderRepository
     {
         Task<IEnumerable<Order>> GetAll();
-        Task<IEnumerable<Order>> GetEverythingFromOrder();
+
+        //Task<Order> GetOrderById();
+
+
         void CreateNewOrder(Order order);
     }
 }

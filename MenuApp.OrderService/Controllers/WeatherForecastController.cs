@@ -31,14 +31,14 @@ namespace MenuApp.OrderService.Controllers
         public async Task<IEnumerable<WeatherForecast>> Get()
         {
             return await _forecastRepository.GetAll();
-            var rng = new Random();
-            return Enumerable.Range(0, 7).Select(index => new WeatherForecast
-                {
-                    Date = DateTime.Now.AddDays(index).DayOfWeek.ToString(),
-                    TemperatureC = rng.Next(-20, 55),
-                    Summary = Summaries[rng.Next(Summaries.Length)]
-                })
-                .ToArray();
+            //var rng = new Random();
+            //return Enumerable.Range(0, 7).Select(index => new WeatherForecast
+            //    {
+            //        Date = DateTime.Now.AddDays(index).DayOfWeek.ToString(),
+            //        TemperatureC = rng.Next(-20, 55),
+            //        Summary = Summaries[rng.Next(Summaries.Length)]
+            //    })
+            //    .ToArray();
         }
     }
 }
