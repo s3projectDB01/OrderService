@@ -21,8 +21,15 @@ namespace MenuApp.OrderService.EntityFramework.Repository
 
         public void CreateNewOrder(Order order)
         {
-           _db.Orders.Add(order);
-           _db.SaveChanges(); 
+            if (order != null) 
+            {
+                _db.Orders.Add(order);
+                _db.SaveChanges();
+            }
+            else
+            {
+                
+            }
         }
 
         public async Task<IEnumerable<Order>> GetAll()
