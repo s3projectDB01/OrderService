@@ -30,5 +30,10 @@ namespace MenuApp.OrderService.EntityFramework.Repository
             return await _db.Orders.ToArrayAsync();
         }
 
+        public async Task<IEnumerable<Order>> GetUnfinishedOrders()
+        {
+            return await _db.Orders.Where(o => o.Status == "done").ToArrayAsync();
+        }
+
     }
 }

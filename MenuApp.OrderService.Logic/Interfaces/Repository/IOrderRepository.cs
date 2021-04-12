@@ -13,6 +13,7 @@ namespace MenuApp.OrderService.Logic.Interfaces.Repository
 
         //Task<Order> GetOrderById();
 
+        Task<IEnumerable<Order>> GetUnfinishedOrders();
 
         void CreateNewOrder(Order order);
     }

@@ -27,6 +27,12 @@ namespace MenuApp.OrderService.Controllers
            return await _orderRepository.GetAll();
         }
 
+        [HttpGet]
+        public async Task<IEnumerable<Order>> GetUnfinishedOrders()
+        {
+            return await _orderRepository.GetUnfinishedOrders();
+        }
+
         [HttpPost]
         public void CreateOrder(Order order) 
         {
