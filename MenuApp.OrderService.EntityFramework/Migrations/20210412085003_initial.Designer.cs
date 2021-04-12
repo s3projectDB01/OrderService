@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MenuApp.OrderService.EntityFramework.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210329135039_Orders2")]
-    partial class Orders2
+    [Migration("20210412085003_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -69,8 +69,14 @@ namespace MenuApp.OrderService.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<double>("Prcie")
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<double>("Price")
                         .HasColumnType("double");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("longtext");
 
                     b.HasKey("Id");
 

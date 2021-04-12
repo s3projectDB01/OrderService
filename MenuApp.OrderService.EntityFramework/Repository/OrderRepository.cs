@@ -17,8 +17,15 @@ namespace MenuApp.OrderService.EntityFramework.Repository
         }
         public void CreateNewOrder(Order order)
         {
-           _db.Orders.Add(order);
-           _db.SaveChanges(); 
+            if (order != null) 
+            {
+                _db.Orders.Add(order);
+                _db.SaveChanges();
+            }
+            else
+            {
+                
+            }
         }
 
         public async Task<IEnumerable<Order>> GetAll()
@@ -28,7 +35,7 @@ namespace MenuApp.OrderService.EntityFramework.Repository
 
         public async Task<IEnumerable<Order>> GetEverythingFromOrder()
         {
-            throw new System.NotImplementedException();
+            return await _db.Orders.ToArrayAsync();
         }
     }
 }
