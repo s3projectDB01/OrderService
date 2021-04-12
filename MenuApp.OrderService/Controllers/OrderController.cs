@@ -41,6 +41,10 @@ namespace MenuApp.OrderService.Controllers
             {
                 return await _orderRepository.GetCancelledOrders();
             }
+            else if (status == "all")
+            {
+                return await _orderRepository.GetAll();
+            }
             else
             {
                 return await _orderRepository.GetAll();
