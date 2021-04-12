@@ -4,6 +4,7 @@ using MenuApp.OrderService.EntityFramework.Data;
 using MenuApp.OrderService.Logic.Entities;
 using MenuApp.OrderService.Logic.Interfaces.Repository;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace MenuApp.OrderService.EntityFramework.Repository
 {
@@ -24,7 +25,7 @@ namespace MenuApp.OrderService.EntityFramework.Repository
             }
             else
             {
-                
+                throw new ArgumentNullException("You fucked up");
             }
         }
 
