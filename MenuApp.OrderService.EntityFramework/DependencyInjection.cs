@@ -1,6 +1,7 @@
 ﻿using System;
 using MenuApp.OrderService.EntityFramework.Data;
 using MenuApp.OrderService.EntityFramework.Repository;
+using MenuApp.OrderService.Logic.Entities;
 using MenuApp.OrderService.Logic.Interfaces.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,8 +22,9 @@ namespace MenuApp.OrderService.EntityFramework
                     .EnableSensitiveDataLogging()
                     .EnableDetailedErrors();
             });
-
+        
             services.AddTransient<IForecastRepository, ForecastRepository>();
+            services.AddTransient<IOrderRepository, OrderRepository>();
             
             return services;
         }

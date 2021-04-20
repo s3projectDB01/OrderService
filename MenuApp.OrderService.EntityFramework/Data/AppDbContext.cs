@@ -9,7 +9,7 @@ namespace MenuApp.OrderService.EntityFramework.Data
         {
             
         }
-        
         public DbSet<WeatherForecast> Forecasts { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }
