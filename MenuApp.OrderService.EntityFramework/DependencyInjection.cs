@@ -21,8 +21,7 @@ namespace MenuApp.OrderService.EntityFramework
                     .EnableSensitiveDataLogging()
                     .EnableDetailedErrors();
             });
-
-            services.AddTransient<IForecastRepository, ForecastRepository>();
+            
             services.AddTransient<IOrderRepository, OrderRepository>();
             
             return services;
