@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MenuApp.OrderService.EntityFramework.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210511120510_AddSessions")]
-    partial class AddSessions
+    [Migration("20210511133126_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -19,48 +19,26 @@ namespace MenuApp.OrderService.EntityFramework.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.4");
 
-            modelBuilder.Entity("MenuApp.OrderService.Logic.Entities.Ingredient", b =>
+            modelBuilder.Entity("MenuApp.OrderService.Logic.Entities.IngredientChange", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid?>("MenuItemId")
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("IngredientId")
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
+                    b.Property<Guid?>("OrderItemId")
+                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MenuItemId");
+                    b.HasIndex("OrderItemId");
 
-                    b.ToTable("Ingredient");
-                });
-
-            modelBuilder.Entity("MenuApp.OrderService.Logic.Entities.MenuItem", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("longtext");
-
-                    b.Property<Guid?>("OrderId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("double");
-
-                    b.Property<string>("Type")
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.ToTable("MenuItem");
+                    b.ToTable("IngredientChange");
                 });
 
             modelBuilder.Entity("MenuApp.OrderService.Logic.Entities.Order", b =>
@@ -88,6 +66,28 @@ namespace MenuApp.OrderService.EntityFramework.Migrations
                     b.ToTable("Orders");
                 });
 
+            modelBuilder.Entity("MenuApp.OrderService.Logic.Entities.OrderItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("MenuItem")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid?>("OrderId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderItem");
+                });
+
             modelBuilder.Entity("MenuApp.OrderService.Logic.Entities.Session", b =>
                 {
                     b.Property<Guid>("Id")
@@ -105,18 +105,11 @@ namespace MenuApp.OrderService.EntityFramework.Migrations
                     b.ToTable("Sessions");
                 });
 
-            modelBuilder.Entity("MenuApp.OrderService.Logic.Entities.Ingredient", b =>
+            modelBuilder.Entity("MenuApp.OrderService.Logic.Entities.IngredientChange", b =>
                 {
-                    b.HasOne("MenuApp.OrderService.Logic.Entities.MenuItem", null)
-                        .WithMany("Ingredients")
-                        .HasForeignKey("MenuItemId");
-                });
-
-            modelBuilder.Entity("MenuApp.OrderService.Logic.Entities.MenuItem", b =>
-                {
-                    b.HasOne("MenuApp.OrderService.Logic.Entities.Order", null)
-                        .WithMany("OrderList")
-                        .HasForeignKey("OrderId");
+                    b.HasOne("MenuApp.OrderService.Logic.Entities.OrderItem", null)
+                        .WithMany("IngredientChanges")
+                        .HasForeignKey("OrderItemId");
                 });
 
             modelBuilder.Entity("MenuApp.OrderService.Logic.Entities.Order", b =>
@@ -126,14 +119,21 @@ namespace MenuApp.OrderService.EntityFramework.Migrations
                         .HasForeignKey("SessionId");
                 });
 
-            modelBuilder.Entity("MenuApp.OrderService.Logic.Entities.MenuItem", b =>
+            modelBuilder.Entity("MenuApp.OrderService.Logic.Entities.OrderItem", b =>
                 {
-                    b.Navigation("Ingredients");
+                    b.HasOne("MenuApp.OrderService.Logic.Entities.Order", null)
+                        .WithMany("Items")
+                        .HasForeignKey("OrderId");
                 });
 
             modelBuilder.Entity("MenuApp.OrderService.Logic.Entities.Order", b =>
                 {
-                    b.Navigation("OrderList");
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("MenuApp.OrderService.Logic.Entities.OrderItem", b =>
+                {
+                    b.Navigation("IngredientChanges");
                 });
 
             modelBuilder.Entity("MenuApp.OrderService.Logic.Entities.Session", b =>

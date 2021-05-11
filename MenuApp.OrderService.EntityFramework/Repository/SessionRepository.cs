@@ -18,6 +18,7 @@ namespace MenuApp.OrderService.EntityFramework.Repository
         public async Task<Session> Create(Session session)
         {
             await _db.Sessions.AddAsync(session);
+            await _db.SaveChangesAsync();
             return session;
         }
 
