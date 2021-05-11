@@ -23,6 +23,7 @@ namespace MenuApp.OrderService.EntityFramework
             });
             
             services.AddTransient<IOrderRepository, OrderRepository>();
+            services.AddTransient<ISessionRepository, SessionRepository>();
             
             return services;
         }
