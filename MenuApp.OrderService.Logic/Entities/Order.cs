@@ -10,7 +10,7 @@ namespace MenuApp.OrderService.Logic.Entities
     {
         public Guid Id { get; set;}
 
-        public List<MenuItem> OrderList { get; set; }
+        public List<OrderItem> Items { get; set; }
 
         public double Price { get; set; }
 
