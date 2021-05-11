@@ -3,14 +3,16 @@ using System;
 using MenuApp.OrderService.EntityFramework.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MenuApp.OrderService.EntityFramework.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210412130535_Order2")]
+    partial class Order2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,6 +84,26 @@ namespace MenuApp.OrderService.EntityFramework.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("MenuApp.OrderService.Logic.Entities.WeatherForecast", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Date")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Summary")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("TemperatureC")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Forecasts");
                 });
 
             modelBuilder.Entity("MenuApp.OrderService.Logic.Entities.Ingredient", b =>
