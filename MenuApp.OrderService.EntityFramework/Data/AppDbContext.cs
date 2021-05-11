@@ -11,5 +11,6 @@ namespace MenuApp.OrderService.EntityFramework.Data
         }
 
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Session> Sessions { get; set; }
     }
 }
