@@ -32,6 +32,13 @@ namespace MenuApp.OrderService.EntityFramework.Repository
             }
         }
 
+        public async Task<Order> UpdateOrder(Order order)
+        {
+            _db.Orders.Update(order);
+            await _db.SaveChangesAsync();
+            return order;
+        }
+
         public async Task<IEnumerable<Order>> GetAll()
         { 
             return await _db.Orders.ToArrayAsync();
@@ -56,6 +63,5 @@ namespace MenuApp.OrderService.EntityFramework.Repository
         {
             return await _db.Orders.Where(o => o.Status == "cancelled").ToArrayAsync();
         }
-
     }
 }

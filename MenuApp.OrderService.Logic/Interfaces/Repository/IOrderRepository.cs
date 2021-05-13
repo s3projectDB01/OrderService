@@ -20,5 +20,7 @@ namespace MenuApp.OrderService.Logic.Interfaces.Repository
         Task<IEnumerable<Order>> GetCancelledOrders();
 
         void CreateNewOrder(Order order);
+
+        Task<Order> UpdateOrder(Order order);
     }
 }
