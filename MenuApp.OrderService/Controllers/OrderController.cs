@@ -45,6 +45,10 @@ namespace MenuApp.OrderService.Controllers
             {
                 return await _orderRepository.GetAll();
             }
+            else if (status == "allNotDone")
+            {
+                return await _orderRepository.GetAllNotDone();
+            }
             else
             {
                 return await _orderRepository.GetAll();

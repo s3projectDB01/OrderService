@@ -9,5 +9,6 @@ namespace MenuApp.OrderService.Logic.Entities
         public int TableNumber { get; set; }
         public string Name { get; set; }
         public List<Order> Orders { get; set; }
+        public bool Active { get; set; }
     }
 }

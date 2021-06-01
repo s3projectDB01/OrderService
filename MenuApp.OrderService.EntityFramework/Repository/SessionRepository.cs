@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MenuApp.OrderService.EntityFramework.Data;
 using MenuApp.OrderService.Logic.Entities;
 using MenuApp.OrderService.Logic.Interfaces.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace MenuApp.OrderService.EntityFramework.Repository
 {
@@ -25,6 +27,11 @@ namespace MenuApp.OrderService.EntityFramework.Repository
         public async Task<Session> Get(Guid id)
         {
             return await _db.Sessions.FindAsync(id);
+        }
+
+        public async Task<IEnumerable<Session>> List()
+        {
+            return await _db.Sessions.ToListAsync();
         }
     }
 }

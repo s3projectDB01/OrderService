@@ -18,6 +18,8 @@ namespace MenuApp.OrderService.Logic.Interfaces.Repository
         Task<IEnumerable<Order>> GetDoneOrders();
 
         Task<IEnumerable<Order>> GetCancelledOrders();
+        
+        Task<IEnumerable<Order>> GetAllNotDone();
 
         void CreateNewOrder(Order order);
     }

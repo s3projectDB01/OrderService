@@ -30,6 +30,12 @@ namespace MenuApp.OrderService.Controllers
         {
             return Ok(await _sessionRepository.Get(id));
         }
+        
+        [HttpGet("List")]
+        public async Task<IActionResult> List()
+        {
+            return Ok(await _sessionRepository.List());
+        }
 
         [HttpGet("GetQR")]
         // ReSharper disable once InconsistentNaming
