@@ -60,5 +60,12 @@ namespace MenuApp.OrderService.Controllers
         {
             _orderRepository.CreateNewOrder(order);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(Order order)
+        {
+            await _orderRepository.UpdateOrder(order);
+            return Ok(order);
+        }
     }
 }

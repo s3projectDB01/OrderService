@@ -37,7 +37,7 @@ namespace MenuApp.OrderService.Controllers
             return Ok(await _sessionRepository.List());
         }
 
-        [HttpGet("GetQR")]
+        [HttpGet("GetQR/{sessionId}")]
         // ReSharper disable once InconsistentNaming
         public async Task<IActionResult> GetQR(Guid sessionId)
         {

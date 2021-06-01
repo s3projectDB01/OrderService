@@ -32,14 +32,21 @@ namespace MenuApp.OrderService.EntityFramework.Repository
             }
         }
 
+        public async Task<Order> UpdateOrder(Order order)
+        {
+            _db.Orders.Update(order);
+            await _db.SaveChangesAsync();
+            return order;
+        }
+
         public async Task<IEnumerable<Order>> GetAll()
         { 
-            return await _db.Orders.ToArrayAsync();
+            return await _db.Orders.OrderBy(o => o.Status).OrderBy(o => o.Status).ThenBy(o => o.Date).ToArrayAsync();
         }
 
         public async Task<IEnumerable<Order>> GetPendingOrders()
         {
-            return await _db.Orders.Where(o => o.Status.Equals("pending")).ToListAsync();
+            return await _db.Orders.Where(o => o.Status.Equals("pending")).OrderBy(o => o.Status).ThenBy(o => o.Date).ToListAsync();
         }
 
         public async Task<IEnumerable<Order>> GetAllNotDone()
@@ -49,18 +56,22 @@ namespace MenuApp.OrderService.EntityFramework.Repository
 
         public async Task<IEnumerable<Order>> GetInProgressOrders()
         {
-            return await _db.Orders.Where(o => o.Status == "inprogress").ToArrayAsync();
+            return await _db.Orders.Where(o => o.Status == "inprogress").OrderBy(o => o.Status).ThenBy(o => o.Date).ToArrayAsync();
         }
 
         public async Task<IEnumerable<Order>> GetDoneOrders()
         {
-            return await _db.Orders.Where(o => o.Status == "done").ToArrayAsync();
+            return await _db.Orders.Where(o => o.Status == "done").OrderBy(o => o.Status).ThenBy(o => o.Date).ToArrayAsync();
         }
 
         public async Task<IEnumerable<Order>> GetCancelledOrders()
         {
-            return await _db.Orders.Where(o => o.Status == "cancelled").ToArrayAsync();
+            return await _db.Orders.Where(o => o.Status == "cancelled").OrderBy(o => o.Status).ThenBy(o => o.Date).ToArrayAsync();
         }
 
+        public async Task<IEnumerable<Order>> GetAllNotDone()
+        {
+            return await _db.Orders.Where(o => o.Status != "done").OrderBy(o => o.Status).ThenBy(o => o.Date).ToArrayAsync();
+        }
     }
 }
