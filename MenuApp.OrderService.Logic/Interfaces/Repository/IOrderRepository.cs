@@ -21,8 +21,6 @@ namespace MenuApp.OrderService.Logic.Interfaces.Repository
         
         Task<IEnumerable<Order>> GetAllNotDone();
 
-        Task<IEnumerable<Order>> GetAllNotDone();
-
         void CreateNewOrder(Order order);
 
         Task<Order> UpdateOrder(Order order);
