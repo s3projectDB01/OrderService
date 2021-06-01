@@ -51,7 +51,7 @@ namespace MenuApp.OrderService.EntityFramework.Repository
 
         public async Task<IEnumerable<Order>> GetAllNotDone()
         {
-            return await _db.Orders.Where(o => !o.Status.Equals("done")).ToListAsync();
+            return await _db.Orders.Where(o => !o.Status.Equals("done")).OrderBy(o => o.Status).ThenBy(o => o.Date).ToListAsync();
         }
 
         public async Task<IEnumerable<Order>> GetInProgressOrders()
@@ -67,11 +67,6 @@ namespace MenuApp.OrderService.EntityFramework.Repository
         public async Task<IEnumerable<Order>> GetCancelledOrders()
         {
             return await _db.Orders.Where(o => o.Status == "cancelled").OrderBy(o => o.Status).ThenBy(o => o.Date).ToArrayAsync();
-        }
-
-        public async Task<IEnumerable<Order>> GetAllNotDone()
-        {
-            return await _db.Orders.Where(o => o.Status != "done").OrderBy(o => o.Status).ThenBy(o => o.Date).ToArrayAsync();
         }
     }
 }
