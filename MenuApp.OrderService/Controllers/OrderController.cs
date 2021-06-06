@@ -54,6 +54,7 @@ namespace MenuApp.OrderService.Controllers
         [HttpPost]
         public void CreateOrder(Order order) 
         {
+            order.Date = DateTime.Now;
             _orderRepository.CreateNewOrder(order);
         }
 
