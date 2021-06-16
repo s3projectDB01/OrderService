@@ -7,6 +7,7 @@ using MenuApp.OrderService.Hubs;
 using MenuApp.OrderService.Logic.Entities;
 using MenuApp.OrderService.Logic.Interfaces.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 
 namespace MenuApp.OrderService.Controllers
@@ -16,9 +17,9 @@ namespace MenuApp.OrderService.Controllers
     public class OrderController : Controller
     {
         private readonly IOrderRepository _orderRepository;
-        private readonly OrderHub _orderHub;
+        private readonly IHubContext<OrderHub> _orderHub;
 
-        public OrderController(IOrderRepository orderRepository, OrderHub orderHub) 
+        public OrderController(IOrderRepository orderRepository, IHubContext<OrderHub> orderHub) 
         {
             _orderRepository = orderRepository;
             _orderHub = orderHub;
@@ -63,7 +64,7 @@ namespace MenuApp.OrderService.Controllers
         {
             order.Date = DateTime.Now;
             _orderRepository.CreateNewOrder(order);
-            await _orderHub.SendMessage();
+            await _orderHub.Clients.All.SendAsync("NewOrder");
         }
 
         [HttpPut]
