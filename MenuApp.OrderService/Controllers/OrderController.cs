@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MenuApp.OrderService.Hubs;
 using MenuApp.OrderService.Logic.Entities;
 using MenuApp.OrderService.Logic.Interfaces.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +16,12 @@ namespace MenuApp.OrderService.Controllers
     public class OrderController : Controller
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly OrderHub _orderHub;
 
-        public OrderController(IOrderRepository orderRepository) 
+        public OrderController(IOrderRepository orderRepository, OrderHub orderHub) 
         {
             _orderRepository = orderRepository;
+            _orderHub = orderHub;
         }
 
         [HttpGet("{status}")] // status => pending, inprogress, done, cancelled
@@ -56,10 +59,11 @@ namespace MenuApp.OrderService.Controllers
         }
 
         [HttpPost]
-        public void CreateOrder(Order order) 
+        public async Task CreateOrder(Order order) 
         {
             order.Date = DateTime.Now;
             _orderRepository.CreateNewOrder(order);
+            await _orderHub.SendMessage();
         }
 
         [HttpPut]
