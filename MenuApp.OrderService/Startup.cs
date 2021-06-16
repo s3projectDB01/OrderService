@@ -65,7 +65,7 @@ namespace MenuApp.OrderService
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapHub<OrderHub>("/orderHub");
+                endpoints.MapHub<OrderHub>("/socket/orderHub");
             });
         }
     }
