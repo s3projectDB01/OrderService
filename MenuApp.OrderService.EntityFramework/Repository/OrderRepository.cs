@@ -41,32 +41,32 @@ namespace MenuApp.OrderService.EntityFramework.Repository
 
         public async Task<IEnumerable<Order>> GetAll()
         { 
-            return await _db.Orders.OrderBy(o => o.Status).OrderBy(o => o.Status).ThenBy(o => o.Date).ToArrayAsync();
+            return await _db.Orders.Include(o => o.Items).ThenInclude(o => o.IngredientChanges).OrderBy(o => o.Status).OrderBy(o => o.Status).ThenBy(o => o.Date).ToArrayAsync();
         }
 
         public async Task<IEnumerable<Order>> GetPendingOrders()
         {
-            return await _db.Orders.Where(o => o.Status.Equals("pending")).OrderBy(o => o.Status).ThenBy(o => o.Date).ToListAsync();
+            return await _db.Orders.Include(o => o.Items).ThenInclude(o => o.IngredientChanges).Where(o => o.Status.Equals("pending")).OrderBy(o => o.Status).ThenBy(o => o.Date).ToListAsync();
         }
 
         public async Task<IEnumerable<Order>> GetAllNotDone()
         {
-            return await _db.Orders.Where(o => !o.Status.Equals("done")).OrderBy(o => o.Status).ThenBy(o => o.Date).ToListAsync();
+            return await _db.Orders.Include(o => o.Items).ThenInclude(o => o.IngredientChanges).Where(o => !o.Status.Equals("done")).OrderBy(o => o.Status).ThenBy(o => o.Date).ToListAsync();
         }
 
         public async Task<IEnumerable<Order>> GetInProgressOrders()
         {
-            return await _db.Orders.Where(o => o.Status == "inprogress").OrderBy(o => o.Status).ThenBy(o => o.Date).ToArrayAsync();
+            return await _db.Orders.Include(o => o.Items).ThenInclude(o => o.IngredientChanges).Where(o => o.Status == "inprogress").OrderBy(o => o.Status).ThenBy(o => o.Date).ToArrayAsync();
         }
 
         public async Task<IEnumerable<Order>> GetDoneOrders()
         {
-            return await _db.Orders.Where(o => o.Status == "done").OrderBy(o => o.Status).ThenBy(o => o.Date).ToArrayAsync();
+            return await _db.Orders.Include(o => o.Items).ThenInclude(o => o.IngredientChanges).Where(o => o.Status == "done").OrderBy(o => o.Status).ThenBy(o => o.Date).ToArrayAsync();
         }
 
         public async Task<IEnumerable<Order>> GetCancelledOrders()
         {
-            return await _db.Orders.Where(o => o.Status == "cancelled").OrderBy(o => o.Status).ThenBy(o => o.Date).ToArrayAsync();
+            return await _db.Orders.Include(o => o.Items).ThenInclude(o => o.IngredientChanges).Where(o => o.Status == "cancelled").OrderBy(o => o.Status).ThenBy(o => o.Date).ToArrayAsync();
         }
     }
 }
