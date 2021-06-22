@@ -36,6 +36,7 @@ namespace MenuApp.OrderService
 
             services.AddPersistence(Configuration.GetValue<string>("connectionString"));
 
+            services.AddCors();
             services.AddSignalR();
         }
 
