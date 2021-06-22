@@ -90,6 +90,10 @@ namespace MenuApp.OrderService.Controllers
         public async Task<int> GetTableNumberByOrderId(Guid id)
         {
             var session = await _sessionRepository.GetSessionByOrderId(id);
+            if (session == null)
+            {
+                return 0;
+            }
             return session.TableNumber;
         }
     }
