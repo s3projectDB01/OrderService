@@ -17,11 +17,13 @@ namespace MenuApp.OrderService.Controllers
     public class OrderController : Controller
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly ISessionRepository _sessionRepository;
         private readonly IHubContext<OrderHub> _orderHub;
 
-        public OrderController(IOrderRepository orderRepository, IHubContext<OrderHub> orderHub) 
+        public OrderController(IOrderRepository orderRepository, ISessionRepository sessionRepository, IHubContext<OrderHub> orderHub) 
         {
             _orderRepository = orderRepository;
+            _sessionRepository = sessionRepository;
             _orderHub = orderHub;
         }
 
@@ -60,10 +62,20 @@ namespace MenuApp.OrderService.Controllers
         }
 
         [HttpPost]
-        public async Task CreateOrder(Order order, Guid sessionId) 
+        public async Task CreateOrder(Order order, Guid sessionId)
         {
             order.Date = DateTime.Now;
-            _orderRepository.CreateNewOrder(order);
+
+            if (sessionId.Equals(Guid.Empty))
+            {
+                _orderRepository.CreateNewOrder(order);
+            }
+            else
+            {
+                var session = await _sessionRepository.Get(sessionId);
+                session.Orders.Add(order);
+                await _sessionRepository.Update(session);
+            }
             await _orderHub.Clients.All.SendAsync("NewOrder");
         }
 
@@ -72,6 +84,13 @@ namespace MenuApp.OrderService.Controllers
         {
             await _orderRepository.UpdateOrder(order);
             return Ok(order);
+        }
+
+        [HttpGet("GetTableNumberByOrderId/{id:guid}")]
+        public async Task<int> GetTableNumberByOrderId(Guid id)
+        {
+            var session = await _sessionRepository.GetSessionByOrderId(id);
+            return session.TableNumber;
         }
     }
 }

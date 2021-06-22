@@ -29,9 +29,22 @@ namespace MenuApp.OrderService.EntityFramework.Repository
             return await _db.Sessions.FindAsync(id);
         }
 
+        public async Task<Session> Update(Session session)
+        {
+            _db.Sessions.Update(session);
+            await _db.SaveChangesAsync();
+            return session;
+        }
+
         public async Task<IEnumerable<Session>> List()
         {
             return await _db.Sessions.ToListAsync();
+        }
+
+        public async Task<Session> GetSessionByOrderId(Guid orderId)
+        {
+            return await _db.Sessions.Include(x => x.Orders)
+                .FirstAsync(x => x.Orders.Exists(x => x.Id.Equals(orderId)));
         }
     }
 }

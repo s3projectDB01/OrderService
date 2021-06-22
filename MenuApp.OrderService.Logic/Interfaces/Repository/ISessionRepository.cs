@@ -10,6 +10,8 @@ namespace MenuApp.OrderService.Logic.Interfaces.Repository
     {
         public Task<Session> Create(Session session);
         public Task<Session> Get(Guid id);
+        public Task<Session> Update(Session session);
         public Task<IEnumerable<Session>> List();
+        public Task<Session> GetSessionByOrderId(Guid orderId);
     }
 }
