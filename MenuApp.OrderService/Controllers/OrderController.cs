@@ -60,7 +60,7 @@ namespace MenuApp.OrderService.Controllers
         }
 
         [HttpPost]
-        public async Task CreateOrder(Order order) 
+        public async Task CreateOrder(Order order, Guid sessionId) 
         {
             order.Date = DateTime.Now;
             _orderRepository.CreateNewOrder(order);
