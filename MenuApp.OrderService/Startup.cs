@@ -54,7 +54,7 @@ namespace MenuApp.OrderService
                 options.AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials()
-                    .WithOrigins("http://localhost:3000");
+                    .WithOrigins("http://localhost:3000", "https://kitchen.tycho.dev");
             });
             
             var webSocketOptions = new WebSocketOptions()
