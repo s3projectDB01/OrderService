@@ -62,6 +62,7 @@ namespace MenuApp.OrderService
                 KeepAliveInterval = TimeSpan.FromSeconds(120),
             };
             webSocketOptions.AllowedOrigins.Add("http://localhost:3000");
+            webSocketOptions.AllowedOrigins.Add("https://kitchen.tycho.dev");
 
             app.UseWebSockets(webSocketOptions);
 
