@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MenuApp.OrderService.Hubs;
 using MenuApp.OrderService.Logic.Entities;
 using MenuApp.OrderService.Logic.Interfaces.Repository;
+using MenuApp.OrderService.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
@@ -62,20 +63,18 @@ namespace MenuApp.OrderService.Controllers
         }
 
         [HttpPost]
-        public async Task CreateOrder(Order order, Guid sessionId)
+        public async Task CreateOrder(CreateOrderModel createOrderModel)
         {
-            Console.WriteLine("Creating order with session id: " + sessionId);
-            
-            order.Date = DateTime.Now;
+            createOrderModel.Order.Date = DateTime.Now;
 
-            if (sessionId.Equals(Guid.Empty))
+            if (createOrderModel.SessionId.Equals(Guid.Empty))
             {
-                _orderRepository.CreateNewOrder(order);
+                _orderRepository.CreateNewOrder(createOrderModel.Order);
             }
             else
             {
-                var session = await _sessionRepository.Get(sessionId);
-                session.Orders.Add(order);
+                var session = await _sessionRepository.Get(createOrderModel.SessionId);
+                session.Orders.Add(createOrderModel.Order);
                 await _sessionRepository.Update(session);
             }
             await _orderHub.Clients.All.SendAsync("NewOrder");
