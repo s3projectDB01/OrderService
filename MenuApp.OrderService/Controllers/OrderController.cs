@@ -64,6 +64,8 @@ namespace MenuApp.OrderService.Controllers
         [HttpPost]
         public async Task CreateOrder(Order order, Guid sessionId)
         {
+            Console.WriteLine("Creating order with session id: " + sessionId);
+            
             order.Date = DateTime.Now;
 
             if (sessionId.Equals(Guid.Empty))
