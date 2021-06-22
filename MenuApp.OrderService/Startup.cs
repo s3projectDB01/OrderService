@@ -36,11 +36,6 @@ namespace MenuApp.OrderService
 
             services.AddPersistence(Configuration.GetValue<string>("connectionString"));
 
-            services.AddCors(c =>
-            {
-                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
-            });
-
             services.AddSignalR();
         }
 
@@ -54,11 +49,23 @@ namespace MenuApp.OrderService
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MenuApp.OrderService v1"));
             }
 
-            app.UseHttpsRedirection();
+            app.UseCors(options =>
+            {
+                options.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials()
+                    .WithOrigins("http://localhost:3000");
+            });
+            
+            var webSocketOptions = new WebSocketOptions()
+            {
+                KeepAliveInterval = TimeSpan.FromSeconds(120),
+            };
+            webSocketOptions.AllowedOrigins.Add("http://localhost:3000");
+
+            app.UseWebSockets(webSocketOptions);
 
             app.UseRouting();
-
-            app.UseCors(options => options.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
             app.UseAuthorization();
 
