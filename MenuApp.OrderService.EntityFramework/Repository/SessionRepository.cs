@@ -26,7 +26,7 @@ namespace MenuApp.OrderService.EntityFramework.Repository
 
         public async Task<Session> Get(Guid id)
         {
-            return await _db.Sessions.FindAsync(id);
+            return await _db.Sessions.Include(x => x.Orders).FirstAsync(x => x.Id.Equals(id));
         }
 
         public async Task<Session> Update(Session session)
