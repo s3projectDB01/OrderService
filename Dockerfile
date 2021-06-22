@@ -18,6 +18,9 @@ WORKDIR /app/MenuApp.OrderService
 RUN dotnet publish -c Release -o out 
 #
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
+# make sure qrcodes can be generated
+RUN apt-get update && apt-get install -y libgdiplus
+
 WORKDIR /app 
 #
 COPY --from=build /app/MenuApp.OrderService/out ./
