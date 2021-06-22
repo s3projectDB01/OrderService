@@ -43,8 +43,8 @@ namespace MenuApp.OrderService.EntityFramework.Repository
 
         public async Task<Session> GetSessionByOrderId(Guid orderId)
         {
-            return await _db.Sessions.Include(x => x.Orders)
-                .FirstAsync(x => x.Orders.Exists(x => x.Id.Equals(orderId)));
+            var order = await _db.Orders.FindAsync(orderId);
+            return await _db.Sessions.Include(x => x.Orders).FirstOrDefaultAsync(x => x.Orders.Contains(order));
         }
     }
 }
